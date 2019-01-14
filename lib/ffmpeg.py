@@ -200,7 +200,7 @@ class FFMPEGHandle(object):
             
         # Get bitrate
         for formats in file_properties['format']:
-            bitrate_new = int(formats['bit_rate']) // 2
+            bitrate_new = self.bitrate // 2
             bitrate_new = bitrate_new + 100
 
             if bitrate_new < 1024000:
