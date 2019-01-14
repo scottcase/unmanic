@@ -343,7 +343,7 @@ class FFMPEGHandle(object):
                     ]
                     
                 streams_to_create = streams_to_create + [
-                        "-b:v", "{}k".format(int(bitrate_new))
+                        "-b:v", str(bitrate_new)
                     ]
             if stream['codec_type'] == 'audio':
                 # Get details of audio channel:
