@@ -324,11 +324,11 @@ class FFMPEGHandle(object):
         
         # CHECK BITRATE
         for formats in file_properties['format']:
-            self._log('bitrateSTART', self.bitrate, level='debug')
+            self._log('bitrateSTART', self.bitrate, level='info')
             bitrate_new = self.bitrate // 2
             bitrate_new = bitrate_new + 100
             bitrate_new = bitrate_new // 1024
-            self._log('bitrateNEW', bitrate_new, level='debug')
+            self._log('bitrateNEW', bitrate_new, level='info')
         
         
         for stream in file_properties['streams']:
