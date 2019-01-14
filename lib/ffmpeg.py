@@ -198,6 +198,7 @@ class FFMPEGHandle(object):
                 file_properties = self.file_probe(vid_file_path)
         except Exception as e: 
             self._log("Exception - check_file_to_be_processed: {}".format(e), level='exception')
+            
             # Failed to fetch properties
             if self.settings.DEBUGGING:
                 self._log("Failed to fetch properties of file {}".format(vid_file_path), level='debug')
@@ -212,6 +213,7 @@ class FFMPEGHandle(object):
             bitrate_final = str(bitrate_new) + "k"
 
             if bitrate_new < 1000:
+                
                 if self.settings.DEBUGGING:
                     self._log("Bitrate Lower Than 1000k ({}) on file: {}".format(bitrate_final,vid_file_path), level='debug')
                 return False
@@ -220,6 +222,7 @@ class FFMPEGHandle(object):
             if stream['codec_type'] == 'video':
                 # Check if this file is already the right format
                 if stream['codec_name'] == self.settings.VIDEO_CODEC:
+                    
                     if self.settings.DEBUGGING:
                         self._log("File already {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path), level='debug')
                     return False
@@ -258,6 +261,9 @@ class FFMPEGHandle(object):
         common.ensureDir(outPath)
         # Reset all info
         self.set_info_defaults()
+        
+        
+        
         # Fetch file info
         try:
             self.file_in = self.file_probe(vid_file_path)
