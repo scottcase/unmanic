@@ -266,6 +266,7 @@ class FFMPEGHandle(object):
         success     = False
         ffmpeg_args = self.generate_ffmpeg_args()
         if ffmpeg_args:
+            self._log('ffmpegARGS', ffmpeg_args, level='info')
             success = self.convert_file_and_fetch_progress(srcPath,outPath,ffmpeg_args)
         if success:
             # Move file back to original folder and remove source
@@ -324,11 +325,11 @@ class FFMPEGHandle(object):
         
         # CHECK BITRATE
         for formats in file_properties['format']:
-            self._log('bitrateSTART', self.bitrate, level='info')
+            # self._log('bitrateSTART', self.bitrate, level='info')
             bitrate_new = self.bitrate // 2
             bitrate_new = bitrate_new + 100
             bitrate_new = bitrate_new // 1024
-            self._log('bitrateNEW', bitrate_new, level='info')
+            # self._log('bitrateNEW', bitrate_new, level='info')
         
         
         for stream in file_properties['streams']:
