@@ -204,8 +204,8 @@ class FFMPEGHandle(object):
             bitrate_new = bitrate_new + 100
 
             if bitrate_new < 1024000:
-                self._log("Bitrate Lower Than 1000kb.", level='debug')
-            return False
+                self._log("Bitrate Lower Than 1000kb.", level='info')
+                return False
             
         for stream in file_properties['streams']:
             if stream['codec_type'] == 'video':
