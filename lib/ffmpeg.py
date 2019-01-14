@@ -209,10 +209,10 @@ class FFMPEGHandle(object):
             bitrate_new = self.bitrate // 2
             bitrate_new = bitrate_new + 100
             bitrate_new = bitrate_new // 1024
-            bitrate_new = str(bitrate_new) + "k"
+            bitrate_final = str(bitrate_new) + "k"
 
             if bitrate_new < 1000:
-                self._log("Bitrate Lower Than 1000k ({}) on file: {}".format(bitrate_new,vid_file_path), level='info')
+                self._log("Bitrate Lower Than 1000k ({}) on file: {}".format(bitrate_final,vid_file_path), level='info')
                 return False
             
         for stream in file_properties['streams']:
