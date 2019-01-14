@@ -174,6 +174,12 @@ class FFMPEGHandle(object):
 
         if self.src_fps == None and self.duration == None:
             raise ValueError('Unable to match against FPS or Duration.')
+            
+        # Get Bitrate
+        try: 
+            self.bitrate = eval(info['format']['bit_rate'])
+        except ZeroDivisionError:
+            self._log('Warning, Cannot use input BitRate', level='warning')
          
         return info
 
@@ -204,7 +210,7 @@ class FFMPEGHandle(object):
             bitrate_new = bitrate_new + 100
 
             if bitrate_new < 1024000:
-                self._log("Bitrate Lower Than 1000kb.", level='info')
+                self._log("Bitrate Lower Than 1000kb on file: {}".format(vid_file_path), level='info')
                 return False
             
         for stream in file_properties['streams']:
