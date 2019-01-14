@@ -266,7 +266,6 @@ class FFMPEGHandle(object):
         success     = False
         ffmpeg_args = self.generate_ffmpeg_args()
         if ffmpeg_args:
-            self._log('ffmpegARGS', ffmpeg_args, level='info')
             success = self.convert_file_and_fetch_progress(srcPath,outPath,ffmpeg_args)
         if success:
             # Move file back to original folder and remove source
@@ -344,7 +343,7 @@ class FFMPEGHandle(object):
                     ]
                     
                 streams_to_create = streams_to_create + [
-                        "-b:v", "{}k".bitrate_new
+                        "-b:v", "{}k".format(bitrate_new)
                     ]
             if stream['codec_type'] == 'audio':
                 # Get details of audio channel:
