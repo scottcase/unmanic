@@ -209,7 +209,7 @@ class FFMPEGHandle(object):
             bitrate_new = self.bitrate // 2
             bitrate_new = bitrate_new + 100
             bitrate_new = bitrate_new // 1024
-            bittmp = "{bitrate_new}k"
+            bittmp = bitrate_new + "k"
 
             if bitrate_new < 1000:
                 self._log("Bitrate Lower Than 1000k ({}) on file: {}".format(bittmp,vid_file_path), level='info')
