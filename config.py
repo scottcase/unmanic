@@ -69,7 +69,7 @@ class CONFIG(object):
             "hevc": {
                 "type":"video",
                 "codec_long_name":"HEVC (High Efficiency Video Coding)",
-                "encoder":"libx265"
+                "encoder":"hevc_nvenc"
             },
             "h264": {
                 "type":"video",

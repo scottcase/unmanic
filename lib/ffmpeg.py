@@ -174,6 +174,18 @@ class FFMPEGHandle(object):
 
         if self.src_fps == None and self.duration == None:
             raise ValueError('Unable to match against FPS or Duration.')
+            
+
+        # Get bitrate
+        try:
+            self.bitrate = eval(info['format']['bit_rate'])
+        except ZeroDivisionError:
+            self._log('Warning, Cannot use input BitRate', level='warning')
+        bitrate_new = self.bitrate // 2
+        bitrate_new = bitrate_new + 100
+
+        if bitrate_new < 1024000:
+            raise ValueError('Bitrate Lower Than 1000kb.')
 
         return info
 
@@ -304,6 +316,15 @@ class FFMPEGHandle(object):
         streams_to_map      = []
         streams_to_create   = []
         audio_tracks_count  = 0
+        
+        # CHECK BITRATE
+        for formats in file_properties['format']:
+            # self._log('bitrateSTART', self.bitrate, level='debug')
+            bitrate_new = self.bitrate // 2
+            bitrate_new = bitrate_new + 100
+            # self._log('bitrateNEW', bitrate_new, level='debug')
+        
+        
         for stream in file_properties['streams']:
             if stream['codec_type'] == 'video':
                 # Map this stream
@@ -313,6 +334,10 @@ class FFMPEGHandle(object):
 
                 streams_to_create = streams_to_create + [
                         "-c:v", self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['encoder']
+                    ]
+                    
+                streams_to_create = streams_to_create + [
+                        "-b:v", str(bitrate_new) 
                     ]
             if stream['codec_type'] == 'audio':
                 # Get details of audio channel:
