@@ -208,8 +208,9 @@ class FFMPEGHandle(object):
         for formats in file_properties['format']:
             bitrate_new = self.bitrate // 2
             bitrate_new = bitrate_new + 100
+            bitrate_new = bitrate_new // 1024
 
-            if bitrate_new < 1024000:
+            if bitrate_new < 1000:
                 self._log("Bitrate Lower Than 1000kb on file: {}".format(vid_file_path), level='info')
                 return False
             
@@ -326,6 +327,7 @@ class FFMPEGHandle(object):
             # self._log('bitrateSTART', self.bitrate, level='debug')
             bitrate_new = self.bitrate // 2
             bitrate_new = bitrate_new + 100
+            bitrate_new = bitrate_new // 1024
             # self._log('bitrateNEW', bitrate_new, level='debug')
         
         
@@ -341,7 +343,7 @@ class FFMPEGHandle(object):
                     ]
                     
                 streams_to_create = streams_to_create + [
-                        "-b:v", str(bitrate_new) 
+                        "-b:v", "{}k".str(bitrate_new) 
                     ]
             if stream['codec_type'] == 'audio':
                 # Get details of audio channel:
