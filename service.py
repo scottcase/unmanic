@@ -265,7 +265,7 @@ def start_library_scanner_manager(data_queues, settings):
 
 
 def start_inotify_watch_manager(data_queues, settings):
-    common._logger("Starting EventProcessor")
+    common._logger("Starting iNotify EventProcessor")
     wm = pyinotify.WatchManager()
     wm.add_watch(settings.LIBRARY_PATH, pyinotify.ALL_EVENTS, rec=True)
     # event processor
@@ -311,10 +311,11 @@ def main():
     scheduler = start_library_scanner_manager(data_queues, settings)
 
     # start inotify watch manager
-    notifier = start_inotify_watch_manager(data_queues, settings)
-    notifier.loop()
-    while True:
-        time.sleep(5)
+    if settings.STARTINOTIFYWORKER:
+        notifier = start_inotify_watch_manager(data_queues, settings)
+        notifier.loop()
+        while True:
+            time.sleep(5)
 
     # stop everything
     common._logger("Stopping all processes")
