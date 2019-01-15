@@ -61,7 +61,7 @@ class TaskHandler(threading.Thread):
         self.settings       = settings
         self.job_queue      = job_queue
         self.messages       = data_queues["messages"]
-        self.inotifytasks   = data_queues["inotifytasks"]
+        #self.inotifytasks   = data_queues["inotifytasks"]
         self.scheduledtasks = data_queues["scheduledtasks"]
         self.abort_flag     = threading.Event()
         self.abort_flag.clear()
