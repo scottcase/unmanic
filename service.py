@@ -314,7 +314,7 @@ def main():
     notifier = start_inotify_watch_manager(data_queues, settings)
     notifier.loop()
     while True:
-        time.sleep(5)
+        time.sleep(300)
 
     # stop everything
     common._logger("Stopping all processes")
