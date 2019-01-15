@@ -62,6 +62,8 @@ class CONFIG(object):
         self.SCHEDULE_FULL_SCAN_MINS='60'
         self.RUN_FULL_SCAN_ON_START=False
         self.NUMBER_OF_WORKERS='3'
+        self.MIN_BITRATE='1000'
+        self.MAX_BITRATE='1800'
 
         ### Set the supported codecs (for destination)
         # TODO: Read this from ffmpeg

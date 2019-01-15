@@ -206,17 +206,15 @@ class FFMPEGHandle(object):
             return False
             
         # Get bitrate
-        for formats in file_properties['format']:
-            bitrate_new = self.bitrate // 2
-            bitrate_new = bitrate_new + 100
-            bitrate_new = bitrate_new // 1024
-            bitrate_final = str(bitrate_new) + "k"
+        bitrate_new = self.bitrate // 2
+        bitrate_new = bitrate_new + 100
+        bitrate_new = bitrate_new // 1024
+        bitrate_final = str(bitrate_new) + "k"
 
-            if bitrate_new < 1000:
-                
-                if self.settings.DEBUGGING:
-                    self._log("Bitrate Lower Than 1000k ({}) on file: {}".format(bitrate_final,vid_file_path), level='debug')
-                return False
+        if bitrate_new < int(self.settings.MIN_BITRATE):
+            if self.settings.DEBUGGING:
+                self._log("Bitrate Lower Than 1000k ({}) on file: {}".format(bitrate_final,vid_file_path), level='debug')
+            return False
             
         for stream in file_properties['streams']:
             if stream['codec_type'] == 'video':
@@ -331,13 +329,17 @@ class FFMPEGHandle(object):
         audio_tracks_count  = 0
         
         # CHECK BITRATE
-        for formats in file_properties['format']:
-            # self._log('bitrateSTART', self.bitrate, level='info')
-            bitrate_new = self.bitrate // 2
-            bitrate_new = bitrate_new + 100
-            bitrate_new = bitrate_new // 1024
+        bitrate_new = self.bitrate // 2
+        bitrate_new = bitrate_new + 100
+        bitrate_new = bitrate_new // 1024
+        
+        if bitrate_new > int(self.settings.MAX_BITRATE):
+            bitrate_final = str(self.settings.MAX_BITRATE) + "k"
+        else:
             bitrate_final = str(bitrate_new) + "k"
-            # self._log('bitrateNEW', bitrate_new, level='info')
+            
+        if self.settings.DEBUGGING:
+            self._log('bitrate_final', bitrate_final, level='debug')
         
         
         for stream in file_properties['streams']:
