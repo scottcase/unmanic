@@ -61,7 +61,7 @@ class TaskHandler(threading.Thread):
         self.settings       = settings
         self.job_queue      = job_queue
         self.messages       = data_queues["messages"]
-        #self.inotifytasks   = data_queues["inotifytasks"]
+        self.inotifytasks   = data_queues["inotifytasks"]
         self.scheduledtasks = data_queues["scheduledtasks"]
         self.abort_flag     = threading.Event()
         self.abort_flag.clear()
@@ -286,6 +286,7 @@ def start_ui_server(data_queues, settings, workerHandle):
 def main():
     data_queues = {
           "scheduledtasks":     queue.Queue()
+        , "inotifytasks":       queue.Queue()
         , "messages":           queue.Queue()
         , "progress_reports":   queue.Queue()
     }
@@ -310,10 +311,10 @@ def main():
     scheduler = start_library_scanner_manager(data_queues, settings)
 
     # start inotify watch manager
-    # notifier = start_inotify_watch_manager(data_queues, settings)
-    # notifier.loop()
-    # while True:
-    #    time.sleep(5)
+    notifier = start_inotify_watch_manager(data_queues, settings)
+    notifier.loop()
+    while True:
+        time.sleep(5)
 
     # stop everything
     common._logger("Stopping all processes")
