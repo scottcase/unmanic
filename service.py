@@ -286,7 +286,6 @@ def start_ui_server(data_queues, settings, workerHandle):
 def main():
     data_queues = {
           "scheduledtasks":     queue.Queue()
-        , "inotifytasks":       queue.Queue()
         , "messages":           queue.Queue()
         , "progress_reports":   queue.Queue()
     }
