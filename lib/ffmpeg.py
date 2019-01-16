@@ -89,7 +89,7 @@ class FFMPEGHandleConversionError(Exception):
 #     |__/      |__/      |__/     |__/|__/      |________/ \______/       |__/  |__/ \_______/|__/  |__/ \_______/|__/ \_______/|__/
 #
 #
-#
+
 class FFMPEGHandle(object):
     def __init__(self, settings, messages):
         self.name           = 'FFMPEGHandle'
