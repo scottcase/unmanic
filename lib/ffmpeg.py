@@ -218,13 +218,12 @@ class FFMPEGHandle(object):
             
         for stream in file_properties['streams']:
             if stream['codec_type'] == 'video':
-                self._log("File already {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path), level='debug')
                 # Check if this file is already the right format
                 if stream['codec_name'] == self.settings.VIDEO_CODEC:
-                    
                     if self.settings.DEBUGGING:
                         self._log("File already {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path), level='debug')
-                    return False
+                return False
+                    
         return True
 
     def post_process_file(self, vid_file_path):
