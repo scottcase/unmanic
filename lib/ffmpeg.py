@@ -219,7 +219,8 @@ class FFMPEGHandle(object):
         for stream in file_properties['streams']:
             if stream['codec_type'] == 'video':
                 # Check if this file is already the right format
-                if stream['codec_name'] == self.settings.VIDEO_CODEC:
+                # if stream['codec_name'] == self.settings.VIDEO_CODEC:
+                if stream['codec_name'] == "hevc":
                     if self.settings.DEBUGGING:
                         self._log("File already {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path), level='debug')
                 return False
