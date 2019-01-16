@@ -432,8 +432,7 @@ class FFMPEGHandle(object):
                 return False
 
         # Create command with infile, outfile and the arguments
-        command = ['ffmpeg', '-y', '-i',infile] + args + ['-y',outfile]
-        self._log("Executing: {}".format(' '.join(command)), level='debug')
+        command = ['ffmpeg', '-hwaccel nvdec', '-y', '-i',infile] + args + ['-y',outfile]
         if self.settings.DEBUGGING:
            self._log("Executing: {}".format(' '.join(command)), level='debug')
 
