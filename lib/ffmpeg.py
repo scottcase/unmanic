@@ -434,7 +434,7 @@ class FFMPEGHandle(object):
 
         # Create command with infile, outfile and the arguments
         command = ['ffmpeg', '-y', '-i',infile] + args + ['-y',outfile]
-        self._log("FFMPEG Command is: {}".command, level='debug')
+        self._log("FFMPEG Command is: {}".str(command), level='debug')
         if self.settings.DEBUGGING:
            self._log("Executing: {}".format(' '.join(command)), level='debug')
 
