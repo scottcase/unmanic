@@ -239,7 +239,8 @@ class FFMPEGHandle(object):
         for stream in self.file_out['streams']:
             if stream['codec_type'] == 'video':
                 # Check if this file is the right codec
-                if stream['codec_name'] == self.settings.VIDEO_CODEC:
+                # if stream['codec_name'] == self.settings.VIDEO_CODEC:
+                if stream['codec_name'] == 'hevc':
                     result = True
                 elif self.settings.DEBUGGING:
                     self._log("File is the not correct codec {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path))
@@ -433,6 +434,7 @@ class FFMPEGHandle(object):
 
         # Create command with infile, outfile and the arguments
         command = ['ffmpeg', '-y', '-i',infile] + args + ['-y',outfile]
+        self._log("FFMPEG Command is: {}".command, level='debug')
         if self.settings.DEBUGGING:
            self._log("Executing: {}".format(' '.join(command)), level='debug')
 
