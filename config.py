@@ -71,7 +71,7 @@ class CONFIG(object):
             "hevc": {
                 "type":"video",
                 "codec_long_name":"HEVC (High Efficiency Video Coding)",
-                "encoder":"hevc_nvenc"
+                "encoder":"libx265"
             },
             "nvidia_hevc": {
                 "type":"video",
