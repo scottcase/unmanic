@@ -89,7 +89,7 @@ class FFMPEGHandleConversionError(Exception):
 #     |__/      |__/      |__/     |__/|__/      |________/ \______/       |__/  |__/ \_______/|__/  |__/ \_______/|__/ \_______/|__/
 #
 #
-#
+
 class FFMPEGHandle(object):
     def __init__(self, settings, messages):
         self.name           = 'FFMPEGHandle'
@@ -198,6 +198,7 @@ class FFMPEGHandle(object):
                 file_properties = self.file_probe(vid_file_path)
         except Exception as e: 
             self._log("Exception - check_file_to_be_processed: {}".format(e), level='exception')
+            
             # Failed to fetch properties
             if self.settings.DEBUGGING:
                 self._log("Failed to fetch properties of file {}".format(vid_file_path), level='debug')
@@ -205,21 +206,25 @@ class FFMPEGHandle(object):
             return False
             
         # Get bitrate
-        for formats in file_properties['format']:
-            bitrate_new = self.bitrate // 2
-            bitrate_new = bitrate_new + 100
+        bitrate_new = self.bitrate // 2
+        bitrate_new = bitrate_new + 100
+        bitrate_new = bitrate_new // 1024
+        bitrate_final = str(bitrate_new) + "k"
 
-            if bitrate_new < 1024000:
-                self._log("Bitrate Lower Than 1000kb on file: {}".format(vid_file_path), level='info')
-                return False
+        if bitrate_new < int(self.settings.MIN_BITRATE):
+            if self.settings.DEBUGGING:
+                self._log("Bitrate Lower Than 1000k ({}) on file: {}".format(bitrate_final,vid_file_path), level='debug')
+            return False
             
         for stream in file_properties['streams']:
             if stream['codec_type'] == 'video':
                 # Check if this file is already the right format
-                if stream['codec_name'] == self.settings.VIDEO_CODEC:
+                # if stream['codec_name'] == self.settings.VIDEO_CODEC:
+                if stream['codec_name'] == 'hevc':
                     if self.settings.DEBUGGING:
                         self._log("File already {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path), level='debug')
                     return False
+                    
         return True
 
     def post_process_file(self, vid_file_path):
@@ -234,7 +239,8 @@ class FFMPEGHandle(object):
         for stream in self.file_out['streams']:
             if stream['codec_type'] == 'video':
                 # Check if this file is the right codec
-                if stream['codec_name'] == self.settings.VIDEO_CODEC:
+                # if stream['codec_name'] == self.settings.VIDEO_CODEC:
+                if stream['codec_name'] == 'hevc':
                     result = True
                 elif self.settings.DEBUGGING:
                     self._log("File is the not correct codec {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path))
@@ -255,6 +261,9 @@ class FFMPEGHandle(object):
         common.ensureDir(outPath)
         # Reset all info
         self.set_info_defaults()
+        
+        
+        
         # Fetch file info
         try:
             self.file_in = self.file_probe(vid_file_path)
@@ -322,11 +331,17 @@ class FFMPEGHandle(object):
         audio_tracks_count  = 0
         
         # CHECK BITRATE
-        for formats in file_properties['format']:
-            # self._log('bitrateSTART', self.bitrate, level='debug')
-            bitrate_new = self.bitrate // 2
-            bitrate_new = bitrate_new + 100
-            # self._log('bitrateNEW', bitrate_new, level='debug')
+        bitrate_new = self.bitrate // 2
+        bitrate_new = bitrate_new + 100
+        bitrate_new = bitrate_new // 1024
+        
+        if bitrate_new > int(self.settings.MAX_BITRATE):
+            bitrate_final = str(self.settings.MAX_BITRATE) + "k"
+        else:
+            bitrate_final = str(bitrate_new) + "k"
+            
+        if self.settings.DEBUGGING:
+            self._log('bitrate_final', bitrate_final, level='debug')
         
         
         for stream in file_properties['streams']:
@@ -341,7 +356,7 @@ class FFMPEGHandle(object):
                     ]
                     
                 streams_to_create = streams_to_create + [
-                        "-b:v", str(bitrate_new) 
+                        "-b:v", bitrate_final
                     ]
             if stream['codec_type'] == 'audio':
                 # Get details of audio channel:
@@ -418,7 +433,7 @@ class FFMPEGHandle(object):
                 return False
 
         # Create command with infile, outfile and the arguments
-        command = ['ffmpeg', '-y', '-i',infile] + args + ['-y',outfile]
+        command = ['ffmpeg', '-hwaccel', 'nvdec', '-y', '-i',infile] + args + ['-y',outfile]
         if self.settings.DEBUGGING:
            self._log("Executing: {}".format(' '.join(command)), level='debug')
 

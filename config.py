@@ -26,7 +26,6 @@
 #          OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 #          OR OTHER DEALINGS IN THE SOFTWARE.
 #
-#
 ###################################################################################################
 
 import os
@@ -62,6 +61,8 @@ class CONFIG(object):
         self.SCHEDULE_FULL_SCAN_MINS='60'
         self.RUN_FULL_SCAN_ON_START=False
         self.NUMBER_OF_WORKERS='3'
+        self.MIN_BITRATE='1000'
+        self.MAX_BITRATE='1800'
 
         ### Set the supported codecs (for destination)
         # TODO: Read this from ffmpeg
@@ -69,6 +70,11 @@ class CONFIG(object):
             "hevc": {
                 "type":"video",
                 "codec_long_name":"HEVC (High Efficiency Video Coding)",
+                "encoder":"libx265"
+            },
+            "nvidia_hevc": {
+                "type":"video",
+                "codec_long_name":"nVidia HEVC (High Efficiency Video Coding)",
                 "encoder":"hevc_nvenc"
             },
             "h264": {
