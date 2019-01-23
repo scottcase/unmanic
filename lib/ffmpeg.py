@@ -293,6 +293,14 @@ class FFMPEGHandle(object):
                 if self.settings.KEEP_ORIGINAL_FILE:
                     self._log("KEEP ORIGINAL file {} --> {}".format(srcPath,outPathSaveOrig))
                     shutil.move(srcPath, outPathSaveOrig)
+                    try:
+                        self.post_process_file(outPathSaveOrig)
+                    except FFMPEGHandlePostProcessError:
+                        success = False
+                    if success:
+                        self._log("Removing source: {}".format(srcPath))
+                        ##os.remove(srcPath)
+                    
                 self._log("Moving file {} --> {}".format(outPath,destPath))
                 shutil.move(outPath, destPath)
                 try:
