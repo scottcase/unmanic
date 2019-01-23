@@ -50,7 +50,7 @@ from webserver.settings import SettingsUIRequestHandler
 settings = {}
 settings['template_loader'] = tornado.template.Loader("webserver/templates")
 settings['static_path'] = os.path.join(os.path.dirname(__file__), "..", "webserver", "assets")
-settings['debug'] = True
+settings['debug'] = False
 
 class UIServer(threading.Thread):
     def __init__(self, data_queues, settings, workerHandle):
