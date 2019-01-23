@@ -63,6 +63,7 @@ class CONFIG(object):
         self.NUMBER_OF_WORKERS='3'
         self.MIN_BITRATE='1000'
         self.MAX_BITRATE='1800'
+        self.AUDIO_LANGUAGE='eng'
 
         ### Set the supported codecs (for destination)
         # TODO: Read this from ffmpeg
