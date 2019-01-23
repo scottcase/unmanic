@@ -212,6 +212,8 @@ class CONFIG(object):
             if isinstance(value, str):
                 value = True if value.lower() in ['t','true','1'] else False
             self.KEEP_ORIGINAL_FILE = value
+        if "KEEP_ORIGINAL_PATH" in key:
+            self.KEEP_ORIGINAL_PATH = value
         ### Save to file
         if save_to_file:
             self.writeSettingsToFile()
