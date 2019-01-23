@@ -208,6 +208,10 @@ class CONFIG(object):
             self.RUN_FULL_SCAN_ON_START = value
         if "AUDIO_STEREO_STREAM_BITRATE" in key:
             self.AUDIO_STEREO_STREAM_BITRATE = value
+        if "KEEP_ORIGINAL_FILE" in key:
+            if isinstance(value, str):
+                value = True if value.lower() in ['t','true','1'] else False
+            self.KEEP_ORIGINAL_FILE = value
         ### Save to file
         if save_to_file:
             self.writeSettingsToFile()
