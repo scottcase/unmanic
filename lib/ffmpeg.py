@@ -253,9 +253,16 @@ class FFMPEGHandle(object):
         srcFile     = os.path.basename(vid_file_path)
         srcPath     = os.path.abspath(vid_file_path)
         srcFolder   = os.path.dirname(srcPath)
+        
+        # Parse an output path if save original is true
+        outPathSaveOrig  = os.path.join(self.settings.KEEP_ORIGINAL_PATH,srcFile)
 
         # Parse an output cache path
-        outFile     = "{}.{}".format(os.path.splitext(srcFile)[0], self.settings.OUT_CONTAINER)
+        if self.settings.OUT_CONTAINER == 'mkv' and self.settings.VIDEO_CODEC in ('hevc','nvidia_hevc')
+            outExtension = "hevc.{}".self.settings.OUT_CONTAINER
+        else
+             outExtension = "{}".self.settings.OUT_CONTAINER
+        outFile     = "{}.{}".format(os.path.splitext(srcFile)[0], outExtension)
         outPath     = os.path.join(self.settings.CACHE_PATH,outFile)
         # Create output path if not exists 
         common.ensureDir(outPath)
@@ -282,7 +289,7 @@ class FFMPEGHandle(object):
                 destPath    = os.path.join(srcFolder,outFile)
                 ## if we are keeping original file
                 if self.settings.KEEP_ORIGINAL_FILE:
-                    self._log("KEEP ORIGINAL file {} --> {}".format(srcPath,self.settings.KEEP_ORIGINAL_PATH))
+                    self._log("KEEP ORIGINAL file {} --> {}".format(srcPath,outPathSaveOrig))
                     ##shutil.move(outPath, destPath)
                 self._log("Moving file {} --> {}".format(outPath,destPath))
                 shutil.move(outPath, destPath)
