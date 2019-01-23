@@ -260,9 +260,9 @@ class FFMPEGHandle(object):
         # Parse an output cache path
         if self.settings.OUT_CONTAINER == 'mkv':
             if self.settings.VIDEO_CODEC in ('hevc','nvidia_hevc'):
-                outExtension = "hevc.{}".self.settings.OUT_CONTAINER
+                outExtension = "hevc.{}".format(self.settings.OUT_CONTAINER)
             else:
-                outExtension = "{}".self.settings.OUT_CONTAINER
+                outExtension = "{}".format(self.settings.OUT_CONTAINER)
         
         outFile     = "{}.{}".format(os.path.splitext(srcFile)[0], outExtension)
         outPath     = os.path.join(self.settings.CACHE_PATH,outFile)
