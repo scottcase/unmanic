@@ -214,6 +214,10 @@ class CONFIG(object):
             self.KEEP_ORIGINAL_FILE = value
         if "KEEP_ORIGINAL_PATH" in key:
             self.KEEP_ORIGINAL_PATH = value
+        if "MIN_BITRATE" in key:
+            self.MIN_BITRATE = value
+        if "MAX_BITRATE" in key:
+            self.MAX_BITRATE = value
         ### Save to file
         if save_to_file:
             self.writeSettingsToFile()
