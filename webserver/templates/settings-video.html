@@ -23,6 +23,21 @@
                                 <span class="help-inline"> Select the destination video codec </span>
                             </div>
                         </div>
+                        <hr>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Minimum Video Bitrate</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control input-inline input-medium" name="MIN_BITRATE" value="{{ escape(config.MIN_BITRATE) }}" >
+                                <span class="help-inline"> If the video bitrate is below this setting it will be skipped and not converted </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Maximum Video Bitrate</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control input-inline input-medium" name="MAX_BITRATE" value="{{ escape(config.MAX_BITRATE) }}" >
+                                <span class="help-inline"> If the video bitrate is above this setting it will set to this value </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-actions">
                         <div class="row">

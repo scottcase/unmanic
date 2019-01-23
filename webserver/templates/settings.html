@@ -26,6 +26,13 @@
             $("#REMOVE_SUBTITLE_STREAMS").val("false");
         }
     }
+    var toggleSaveOriginalFile = function() {
+        if ($("#keep_original_file_enabled").prop("checked")) {
+            $("#KEEP_ORIGINAL_FILE").val("true");
+        } else {
+            $("#KEEP_ORIGINAL_FILE").val("false");
+        }
+    }
 </script>
 {% end %}
 

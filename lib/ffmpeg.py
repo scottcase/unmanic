@@ -219,10 +219,10 @@ class FFMPEGHandle(object):
         for stream in file_properties['streams']:
             if stream['codec_type'] == 'video':
                 # Check if this file is already the right format
-                # if stream['codec_name'] == self.settings.VIDEO_CODEC:
-                if stream['codec_name'] == 'hevc':
+                if stream['codec_name'] == self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval']:
+                ##if stream['codec_name'] == 'hevc':
                     if self.settings.DEBUGGING:
-                        self._log("File already {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path), level='debug')
+                        self._log("File already {} - {}".format(self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval'],vid_file_path), level='debug')
                     return False
                     
         return True
@@ -239,8 +239,8 @@ class FFMPEGHandle(object):
         for stream in self.file_out['streams']:
             if stream['codec_type'] == 'video':
                 # Check if this file is the right codec
-                # if stream['codec_name'] == self.settings.VIDEO_CODEC:
-                if stream['codec_name'] == 'hevc':
+                if stream['codec_name'] == self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval']:
+                ##if stream['codec_name'] == 'hevc':
                     result = True
                 elif self.settings.DEBUGGING:
                     self._log("File is the not correct codec {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path))
@@ -253,6 +253,9 @@ class FFMPEGHandle(object):
         srcFile     = os.path.basename(vid_file_path)
         srcPath     = os.path.abspath(vid_file_path)
         srcFolder   = os.path.dirname(srcPath)
+        
+        # Parse save original path
+        saveOriginalFilePath = os.path.join(self.settings.KEEP_ORIGINAL_PATH,srcFile)
 
         # Parse an output cache path
         outFile     = "{}.{}".format(os.path.splitext(srcFile)[0], self.settings.OUT_CONTAINER)
@@ -279,6 +282,10 @@ class FFMPEGHandle(object):
             # Move file back to original folder and remove source
             success = self.post_process_file(outPath)
             if success:
+                if self.settings.KEEP_ORIGINAL_FILE:
+                    self._log("Saving Original file {} --> {}".format(srcPath,saveOriginalFilePath))
+                    shutil.copy(srcPath, saveOriginalFilePath)
+                    
                 destPath    = os.path.join(srcFolder,outFile)
                 self._log("Moving file {} --> {}".format(outPath,destPath))
                 shutil.move(outPath, destPath)
@@ -367,7 +374,8 @@ class FFMPEGHandle(object):
                         ]
 
                     streams_to_create = streams_to_create + [
-                            "-c:a:{}".format(audio_tracks_count), "copy"
+                            "-c:a:{}".format(audio_tracks_count), "copy",
+                            "-metadata:s:a:{}".format(audio_tracks_count), "language={}".format(self.settings.AUDIO_LANGUAGE),
                         ]
                     audio_tracks_count += 1
 
@@ -387,6 +395,7 @@ class FFMPEGHandle(object):
                                 "-b:a:{}".format(audio_tracks_count), self.settings.AUDIO_STEREO_STREAM_BITRATE,
                                 "-ac", "2",
                                 "-metadata:s:a:{}".format(audio_tracks_count), "title='{}'".format(audio_tag),
+                                "-metadata:s:a:{}".format(audio_tracks_count), "language={}".format(self.settings.AUDIO_LANGUAGE),
                             ]
                 else:
                     # Force conversion of stereo audio to standard
@@ -398,6 +407,7 @@ class FFMPEGHandle(object):
                                 "-c:a:{}".format(audio_tracks_count), self.settings.CODEC_CONFIG[self.settings.AUDIO_CODEC]['encoder'] ,
                                 "-b:a:{}".format(audio_tracks_count), self.settings.AUDIO_STEREO_STREAM_BITRATE,
                                 "-ac", "2",
+                                "-metadata:s:a:{}".format(audio_tracks_count), "language={}".format(self.settings.AUDIO_LANGUAGE),
                             ]
             if stream['codec_type'] == 'subtitle':
                 if self.settings.REMOVE_SUBTITLE_STREAMS:

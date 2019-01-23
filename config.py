@@ -63,6 +63,9 @@ class CONFIG(object):
         self.NUMBER_OF_WORKERS='3'
         self.MIN_BITRATE='1000'
         self.MAX_BITRATE='1800'
+        self.AUDIO_LANGUAGE='eng'
+        self.KEEP_ORIGINAL_FILE=True
+        self.KEEP_ORIGINAL_PATH='/MoviesUnsorted'
 
         ### Set the supported codecs (for destination)
         # TODO: Read this from ffmpeg
@@ -70,17 +73,20 @@ class CONFIG(object):
             "hevc": {
                 "type":"video",
                 "codec_long_name":"HEVC (High Efficiency Video Coding)",
-                "encoder":"libx265"
+                "encoder":"libx265",
+                "checkval":"hevc"
             },
             "nvidia_hevc": {
                 "type":"video",
                 "codec_long_name":"nVidia HEVC (High Efficiency Video Coding)",
-                "encoder":"hevc_nvenc"
+                "encoder":"hevc_nvenc",
+                "checkval":"hevc"
             },
             "h264": {
                 "type":"video",
                 "codec_long_name":"H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
-                "encoder":"libx264"
+                "encoder":"libx264",
+                "checkval":"h264"
             },
             "aac": {
                 "type":"audio",
@@ -205,6 +211,16 @@ class CONFIG(object):
             self.RUN_FULL_SCAN_ON_START = value
         if "AUDIO_STEREO_STREAM_BITRATE" in key:
             self.AUDIO_STEREO_STREAM_BITRATE = value
+        if "KEEP_ORIGINAL_FILE" in key:
+            if isinstance(value, str):
+                value = True if value.lower() in ['t','true','1'] else False
+            self.KEEP_ORIGINAL_FILE = value
+        if "KEEP_ORIGINAL_PATH" in key:
+            self.KEEP_ORIGINAL_PATH = value
+        if "MIN_BITRATE" in key:
+            self.MIN_BITRATE = value
+        if "MAX_BITRATE" in key:
+            self.MAX_BITRATE = value
         ### Save to file
         if save_to_file:
             self.writeSettingsToFile()
