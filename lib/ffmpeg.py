@@ -222,7 +222,7 @@ class FFMPEGHandle(object):
                 if stream['codec_name'] == self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval']:
                 ##if stream['codec_name'] == 'hevc':
                     if self.settings.DEBUGGING:
-                        self._log("File already {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path), level='debug')
+                        self._log("File already {} - {}".format(self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval'],vid_file_path), level='debug')
                     return False
                     
         return True
