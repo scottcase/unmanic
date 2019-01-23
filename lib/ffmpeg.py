@@ -368,7 +368,7 @@ class FFMPEGHandle(object):
 
                     streams_to_create = streams_to_create + [
                             "-c:a:{}".format(audio_tracks_count), "copy",
-                            "-metadata:s:a:{}".format(audio_tracks_count), "language='{}'".format(self.settings.AUDIO_LANGUAGE),
+                            "-metadata:s:a:{}".format(audio_tracks_count), " language={}".format(self.settings.AUDIO_LANGUAGE),
                         ]
                     audio_tracks_count += 1
 
@@ -388,7 +388,7 @@ class FFMPEGHandle(object):
                                 "-b:a:{}".format(audio_tracks_count), self.settings.AUDIO_STEREO_STREAM_BITRATE,
                                 "-ac", "2",
                                 "-metadata:s:a:{}".format(audio_tracks_count), "title='{}'".format(audio_tag),
-                                "-metadata:s:a:{}".format(audio_tracks_count), "language='{}'".format(self.settings.AUDIO_LANGUAGE),
+                                "-metadata:s:a:{}".format(audio_tracks_count), " language={}".format(self.settings.AUDIO_LANGUAGE),
                             ]
                 else:
                     # Force conversion of stereo audio to standard
@@ -400,7 +400,7 @@ class FFMPEGHandle(object):
                                 "-c:a:{}".format(audio_tracks_count), self.settings.CODEC_CONFIG[self.settings.AUDIO_CODEC]['encoder'] ,
                                 "-b:a:{}".format(audio_tracks_count), self.settings.AUDIO_STEREO_STREAM_BITRATE,
                                 "-ac", "2",
-                                "-metadata:s:a:{}".format(audio_tracks_count), "language='{}'".format(self.settings.AUDIO_LANGUAGE),
+                                "-metadata:s:a:{}".format(audio_tracks_count), " language={}".format(self.settings.AUDIO_LANGUAGE),
                             ]
             if stream['codec_type'] == 'subtitle':
                 if self.settings.REMOVE_SUBTITLE_STREAMS:
