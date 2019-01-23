@@ -292,7 +292,7 @@ class FFMPEGHandle(object):
                 ## if we are keeping original file
                 if self.settings.KEEP_ORIGINAL_FILE:
                     self._log("KEEP ORIGINAL file {} --> {}".format(srcPath,outPathSaveOrig))
-                    ##shutil.move(outPath, destPath)
+                    shutil.move(srcPath, outPathSaveOrig)
                 self._log("Moving file {} --> {}".format(outPath,destPath))
                 shutil.move(outPath, destPath)
                 try:
