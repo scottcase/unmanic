@@ -73,17 +73,20 @@ class CONFIG(object):
             "hevc": {
                 "type":"video",
                 "codec_long_name":"HEVC (High Efficiency Video Coding)",
-                "encoder":"libx265"
+                "encoder":"libx265",
+                "checkval":"hevc"
             },
             "nvidia_hevc": {
                 "type":"video",
                 "codec_long_name":"nVidia HEVC (High Efficiency Video Coding)",
-                "encoder":"hevc_nvenc"
+                "encoder":"hevc_nvenc",
+                "checkval":"hevc"
             },
             "h264": {
                 "type":"video",
                 "codec_long_name":"H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
-                "encoder":"libx264"
+                "encoder":"libx264",
+                "checkval":"h264"
             },
             "aac": {
                 "type":"audio",
