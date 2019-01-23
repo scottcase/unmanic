@@ -81,7 +81,7 @@ class UIServer(threading.Thread):
         self._log("Listening on port 8888")
         self._log(settings['static_path'])
         self.app.listen(8888)
-        logging.getLogger('tornado.access').disabled = True
+        
         tornado.ioloop.IOLoop.current().start()
 
     def makeApp(self):
