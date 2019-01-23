@@ -39,7 +39,7 @@
                                 <label class="col-md-3 control-label">Save Original File</label>
                                 <div class="col-md-9">
                                     <div class="checkbox-list">
-                                            <input type="hidden" name="KEEP_ORIGINAL_FILE" id="KEEP_ORIGINAL_FILE" value="{% if KEEP_ORIGINAL_FILE %}true{% end %}" > 
+                                            <input type="hidden" name="KEEP_ORIGINAL_FILE" id="KEEP_ORIGINAL_FILE" value="{% if config.KEEP_ORIGINAL_FILE %}true{% end %}" > 
                                         <label>
                                             <input type="checkbox" id="keep_original_file_enabled" onchange="toggleSaveOriginalFile();" {% if config.KEEP_ORIGINAL_FILE %} checked {% end %} />
                                         </label>
