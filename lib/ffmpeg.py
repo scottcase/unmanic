@@ -280,6 +280,10 @@ class FFMPEGHandle(object):
             success = self.post_process_file(outPath)
             if success:
                 destPath    = os.path.join(srcFolder,outFile)
+                ## if we are keeping original file
+                if self.settings.KEEP_ORIGINAL_FILE:
+                    self._log("KEEP ORIGINAL file {} --> {}".format(srcPath,self.settings.KEEP_ORIGINAL_PATH))
+                    ##shutil.move(outPath, destPath)
                 self._log("Moving file {} --> {}".format(outPath,destPath))
                 shutil.move(outPath, destPath)
                 try:

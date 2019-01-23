@@ -64,6 +64,8 @@ class CONFIG(object):
         self.MIN_BITRATE='1000'
         self.MAX_BITRATE='1800'
         self.AUDIO_LANGUAGE='eng'
+        self.KEEP_ORIGINAL_FILE=True
+        self.KEEP_ORIGINAL_PATH='/MoviesUnsorted'
 
         ### Set the supported codecs (for destination)
         # TODO: Read this from ffmpeg
