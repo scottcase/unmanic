@@ -3,9 +3,9 @@ LABEL maintainer="Scott <scott.case.1@gmail.com>"
 
 WORKDIR /tmp
 
-ADD build-ffmpeg.sh build-ffmpeg.sh
+ADD buildffmpeg.sh buildffmpeg.sh
 ADD requirements.txt requirements.txt
-RUN chmod +x build-ffmpeg.sh
+RUN chmod +x buildffmpeg.sh
 
 RUN apt-get update && \
     apt-get install -y autoconf automake build-essential libass-dev libfreetype6-dev \
