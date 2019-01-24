@@ -20,7 +20,7 @@ RUN apt-get update && \
 
 # Add pip requirements
 COPY /requirements.txt /tmp/requirements.txt
-COPY /build_ffmpeg.sh /tmp/build_ffmpeg.sh
+COPY /buildffmpeg.sh /tmp/buildffmpeg.sh
 
 
 ### Install pyinotify service.
@@ -29,7 +29,7 @@ RUN \
         && python3 -m pip install --no-cache-dir -r /tmp/requirements.txt  \
     && \
     echo "**** Install ffmpeg ****" \
-        && RUN ./build-ffmpeg.sh \
+        && RUN ./buildffmpeg.sh \
     && \
     echo "**** Cleanup ****" \
         && rm -rf \
