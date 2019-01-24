@@ -1,37 +1,35 @@
-FROM josh5/base-alpine:3.8
-LABEL maintainer="Josh.5 <jsunnex@gmail.com>"
+FROM nvidia/cuda
+LABEL maintainer="Scott <scott.case.1@gmail.com>"
 
+WORKDIR /tmp
+
+ADD build-ffmpeg.sh build-ffmpeg.sh
+ADD requirements.txt requirements.txt
+RUN chmod +x build-ffmpeg.sh
+
+RUN apt-get update && \
+    apt-get install -y autoconf automake build-essential libass-dev libfreetype6-dev \
+    libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \
+    libxcb-xfixes0-dev libpng-dev pkg-config texinfo zlib1g-dev yasm libmp3lame-dev libxvidcore-dev \
+    libopus-dev libxmu-dev freeglut3 freeglut3-dev screen git libfdk-aac-dev libvpx-dev libx264-dev \
+    mercurial cmake wget python3-setuptools python3-pip
 
 ################################
 ### Config:
 ###
-# Build Dependencies (not required in final image)
-ARG BUILD_DEPENDENCIES=" \
-        python3-dev \
-        python3-pip \
-        python3-setuptools \
-    "
-
 
 # Add pip requirements
 COPY /requirements.txt /tmp/requirements.txt
+COPY /build_ffmpeg.sh /tmp/build_ffmpeg.sh
 
 
 ### Install pyinotify service.
 RUN \
-    echo "**** Update sources ****" \
-        && apk update \
-    && \
-    echo "**** Install python ****" \
-        && apk add --no-cache \
-            python3 \
-    && \
-    echo "**** Install ffmpeg ****" \
-        && apk add --no-cache \
-            ffmpeg \
-    && \
     echo "**** Install pip packages ****" \
         && python3 -m pip install --no-cache-dir -r /tmp/requirements.txt  \
+    && \
+    echo "**** Install ffmpeg ****" \
+        && RUN ./build-ffmpeg.sh \
     && \
     echo "**** Cleanup ****" \
         && rm -rf \
