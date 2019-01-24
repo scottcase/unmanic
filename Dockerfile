@@ -5,7 +5,7 @@ WORKDIR /tmp
 
 ADD buildffmpeg.sh buildffmpeg.sh
 ADD requirements.txt requirements.txt
-RUN chmod +x buildffmpeg.sh
+
 
 RUN apt-get update && \
     apt-get install -y autoconf automake build-essential libass-dev libfreetype6-dev \
@@ -21,7 +21,7 @@ RUN apt-get update && \
 # Add pip requirements
 COPY /requirements.txt /tmp/requirements.txt
 COPY /buildffmpeg.sh /tmp/buildffmpeg.sh
-
+RUN chmod +x /tmp/buildffmpeg.sh
 
 ### Install pyinotify service.
 RUN \
@@ -29,7 +29,7 @@ RUN \
         && python3 -m pip install --no-cache-dir -r /tmp/requirements.txt  \
     && \
     echo "**** Install ffmpeg ****" \
-        && RUN ./buildffmpeg.sh \
+        && /tmp/buildffmpeg.sh \
     && \
     echo "**** Cleanup ****" \
         && rm -rf \
@@ -46,6 +46,5 @@ COPY /              /app/
 ENV \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
-    LC_CTYPE=en_US.UTF-8 \
-    LC_ALL=en_US.UTF-8
+    LC_CTYPE=en_US.UTF-8
 
