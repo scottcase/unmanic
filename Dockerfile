@@ -1,8 +1,6 @@
 FROM nvidia/cuda
 LABEL maintainer="Scott <scott.case.1@gmail.com>"
 
-WORKDIR /tmp
-
 ADD buildffmpeg.sh buildffmpeg.sh
 ADD requirements.txt requirements.txt
 
@@ -40,11 +38,9 @@ RUN \
 ### Add local files
 COPY /docker/root   /
 COPY /              /app/
+RUN chmod +x /app/service.py
 
-
-### Environment variables
-ENV \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8 \
-    LC_CTYPE=en_US.UTF-8
-
+EXPOSE 8888
+VOLUME /config
+WORKDIR /app
+CMD [ "python3", "/app/service.py" ]
