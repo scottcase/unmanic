@@ -6,8 +6,8 @@ make
 make install
 cd ..
 
-wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 
-tar xjvf ffmpeg-snapshot.tar.bz2
+wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 &> /dev/null
+tar xjvf ffmpeg-snapshot.tar.bz2 &> /dev/null
 cd ffmpeg
 
 ./configure \
@@ -36,5 +36,5 @@ cd ffmpeg
 --extra-cflags=-I/usr/local/cuda/include \
 --extra-ldflags=-L/usr/local/cuda/lib64
 
-make -j 10
+make -j 10 &> /dev/null
 make install
