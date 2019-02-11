@@ -114,6 +114,7 @@ class FFMPEGHandle(object):
         self.fps            = 0
         self.speed          = 0
         self.bitrate        = 0
+        self.src_codec_name = None
         self.file_size      = None
 
     def _log(self, message, message2 = '', level = "info"):
@@ -157,6 +158,9 @@ class FFMPEGHandle(object):
                 self._log('meda', message2=info, level='debug')
             if info:
                 self.src_fps = eval(info['streams'][0]['avg_frame_rate'])
+                self.src_codec_name = format(info['streams'][0]['codec_name'])
+                
+                
         except ZeroDivisionError:
             self._log('Warning, Cannot use input FPS', level='warning')
         if self.src_fps == 0:
@@ -442,8 +446,12 @@ class FFMPEGHandle(object):
                 return False
 
         # Create command with infile, outfile and the arguments
-        command = ['ffmpeg', '-hwaccel', 'nvdec', '-y', '-i',infile] + args + ['-y',outfile]
-        self._log('mediaforconverfilefunction', message2=file_properties, level='debug')
+        if format(self.src_codec_name) == 'mpeg4':
+            command = ['ffmpeg', '-hwaccel', 'cuvid', '-c:v', 'mpeg4_cuvid', '-y', '-i',infile] + args + ['-y',outfile]
+        else:
+            command = ['ffmpeg', '-hwaccel', 'nvdec', '-y', '-i',infile] + args + ['-y',outfile]
+        
+        
         if self.settings.DEBUGGING:
            self._log("Executing: {}".format(' '.join(command)), level='debug')
            
