@@ -158,8 +158,7 @@ class FFMPEGHandle(object):
                 self._log('meda', message2=info, level='debug')
             if info:
                 self.src_fps = eval(info['streams'][0]['avg_frame_rate'])
-                self.src_codec_name = format(info['streams'][0]['codec_name'])
-                
+                self.src_codec_name = format(info['streams'][0]['codec_name'])  
                 
         except ZeroDivisionError:
             self._log('Warning, Cannot use input FPS', level='warning')
