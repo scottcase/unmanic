@@ -446,6 +446,7 @@ class FFMPEGHandle(object):
         self._log('mediaforconverfilefunction', message2=file_properties, level='debug')
         if self.settings.DEBUGGING:
            self._log("Executing: {}".format(' '.join(command)), level='debug')
+           
 
         # Log the start time
         self.start_time     = time.time()
