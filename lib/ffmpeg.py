@@ -157,7 +157,7 @@ class FFMPEGHandle(object):
             if self.settings.DEBUGGING:
                 self._log('meda', message2=info, level='debug')
             if info:
-                for stream in file_properties['streams']:
+                for stream in info['streams']:
                     if stream['codec_type'] == 'video':
                         self.src_fps = eval(stream['avg_frame_rate'])
                 
