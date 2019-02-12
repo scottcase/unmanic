@@ -225,7 +225,6 @@ class FFMPEGHandle(object):
                     if self.settings.DEBUGGING:
                         self._log("File already {} - {}".format(self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval'],vid_file_path), level='debug')
                     return False
-                    
         return True
 
     def post_process_file(self, vid_file_path):
