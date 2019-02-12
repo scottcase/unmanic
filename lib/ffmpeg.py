@@ -214,16 +214,16 @@ class FFMPEGHandle(object):
 
         if bitrate_new < int(self.settings.MIN_BITRATE):
             if self.settings.DEBUGGING:
-                self._log("Bitrate Lower Than 1000k ({}) on file: {}".format(bitrate_final,vid_file_path), level='debug')
+                self._log("Bitrate Lower Than {}k ({}) on file: {}".format(self.settings.MIN_BITRATE,bitrate_final,vid_file_path), level='debug')
             return False
+            
             
         for stream in file_properties['streams']:
             if stream['codec_type'] == 'video':
                 # Check if this file is already the right format
                 if stream['codec_name'] == self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval']:
-                ##if stream['codec_name'] == 'hevc':
                     if self.settings.DEBUGGING:
-                        self._log("File already {} - {}".format(self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval'],vid_file_path), level='debug')
+                        self._log("File already {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path), level='debug')
                     return False
         return True
 
