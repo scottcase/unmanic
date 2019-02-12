@@ -222,7 +222,7 @@ class FFMPEGHandle(object):
             if stream['codec_type'] == 'video':
                 self.src_codec_name = format(stream['codec_name'])
                 
-                self._log("codec_name IS: {}".format(self.src_codec_name), level='warning')
+                self._log("codec_name IS at first spot: {}".format(self.src_codec_name), level='warning')
                 
                 # Check if this file is already the right format
                 if stream['codec_name'] == self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval']:
