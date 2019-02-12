@@ -21,13 +21,13 @@ COPY /requirements.txt /tmp/requirements.txt
 COPY /buildffmpeg.sh /tmp/buildffmpeg.sh
 RUN chmod +x /tmp/buildffmpeg.sh
 
+### Install ffmpeg
+RUN echo "**** Install ffmpeg ****" && /tmp/buildffmpeg.sh
+
 ### Install pyinotify service.
 RUN \
     echo "**** Install pip packages ****" \
         && python3 -m pip install --no-cache-dir -r /tmp/requirements.txt  \
-    && \
-    echo "**** Install ffmpeg ****" \
-        && /tmp/buildffmpeg.sh \
     && \
     echo "**** Cleanup ****" \
         && rm -rf \
