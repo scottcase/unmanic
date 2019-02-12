@@ -450,8 +450,8 @@ class FFMPEGHandle(object):
         for stream in file_properties['streams']:
             if stream['codec_type'] == 'video':
                 self.src_codec_name = format(stream['codec_name'])
-                    if self.settings.DEBUGGING:
-                        self._log('Codec_Name IS', format(self.src_codec_name), level='debug')
+                if self.settings.DEBUGGING:
+                    self._log('Codec_Name IS', format(self.src_codec_name), level='debug')
 
         # Create command with infile, outfile and the arguments
         if format(self.src_codec_name) == 'mpeg4':
