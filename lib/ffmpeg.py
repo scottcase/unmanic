@@ -158,7 +158,7 @@ class FFMPEGHandle(object):
                 self._log('meda', message2=info, level='debug')
             if info:
                 self.src_fps = eval(info['streams'][0]['avg_frame_rate'])
-                self.src_codec_name = format(info['streams'][0]['codec_name'])  
+                ##self.src_codec_name = format(info['streams'][0]['codec_name'])  
                 
         except ZeroDivisionError:
             self._log('Warning, Cannot use input FPS', level='warning')
@@ -226,6 +226,8 @@ class FFMPEGHandle(object):
                     if self.settings.DEBUGGING:
                         self._log("File already {} - {}".format(self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval'],vid_file_path), level='debug')
                     return False
+                else:
+                    self.src_codec_name = format(stream['codec_name'])
                     
         return True
 
