@@ -228,6 +228,7 @@ class FFMPEGHandle(object):
                     return False
                 else:
                     self.src_codec_name = format(stream['codec_name'])
+                    self._log("codec_name IS: {}".format(self.src_codec_name), level='debug')
                     
         return True
 
