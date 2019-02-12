@@ -220,19 +220,12 @@ class FFMPEGHandle(object):
             
         for stream in file_properties['streams']:
             if stream['codec_type'] == 'video':
-                self.src_codec_name = format(stream['codec_name'])
-                
-                self._log("codec_name IS at first spot: {}".format(self.src_codec_name), level='warning')
-                
                 # Check if this file is already the right format
                 if stream['codec_name'] == self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval']:
                 ##if stream['codec_name'] == 'hevc':
                     if self.settings.DEBUGGING:
                         self._log("File already {} - {}".format(self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval'],vid_file_path), level='debug')
                     return False
-                else:
-                    self.src_codec_name = format(stream['codec_name'])
-                    self._log("codec_name IS: {}".format(self.src_codec_name), level='debug')
                     
         return True
 
@@ -453,6 +446,12 @@ class FFMPEGHandle(object):
 
         if self.settings.DEBUGGING:
             self._log('medaconvertfile', message2=file_properties, level='debug')
+            
+        for stream in file_properties['streams']:
+            if stream['codec_type'] == 'video':
+                self.src_codec_name = format(stream['codec_name'])
+                    if self.settings.DEBUGGING:
+                        self._log('Codec_Name IS', format(self.src_codec_name), level='debug')
 
         # Create command with infile, outfile and the arguments
         if format(self.src_codec_name) == 'mpeg4':
