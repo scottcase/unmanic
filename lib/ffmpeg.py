@@ -451,6 +451,9 @@ class FFMPEGHandle(object):
                 self._log("Exception - convert_file_and_fetch_progress: {}".format(e), level='exception')
                 return False
 
+        if self.settings.DEBUGGING:
+            self._log('medaconvertfile', message2=file_properties, level='debug')
+
         # Create command with infile, outfile and the arguments
         if format(self.src_codec_name) == 'mpeg4':
             command = ['ffmpeg', '-hwaccel', 'cuvid', '-c:v', 'mpeg4_cuvid', '-y', '-i',infile] + args + ['-y',outfile]
