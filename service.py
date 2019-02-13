@@ -92,7 +92,7 @@ class TaskHandler(threading.Thread):
                         else:
                             main_logger.info("Skipping job already in the queue - {}".format(pathname))
                     else:
-                        self._log("Skipping job already Target Format - {}".format(pathname))
+                        main_logger.info("Skipping job already Target Format - {}".format(pathname))
                 except queue.Empty:
                     continue
                 except Exception as e:
@@ -152,10 +152,7 @@ class LibraryScanner(threading.Thread):
         self.getConvertFiles(self.settings.LIBRARY_PATH)
 
     def addPathToQueue(self,pathname):
-        if self.fileNotTargetFormat(pathname):
-            if self.settings.DEBUGGING:
-                self._log("In addPathToQueue function for file - {}".format(pathname))
-            self.scheduledtasks.put(pathname)
+        self.scheduledtasks.put(pathname)
 
     def fileNotTargetFormat(self,pathname):
         if not self.ffmpeg.check_file_to_be_processed(pathname):
