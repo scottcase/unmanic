@@ -275,6 +275,17 @@ class FFMPEGHandle(object):
         except Exception as e: 
             self._log("Exception - process_file: {}".format(e), level='exception')
             return False
+            
+        # check if already desired codec
+        for stream in self.file_in['streams']:
+            if stream['codec_type'] == 'video':
+                # Check if this file is already the right format
+                if stream['codec_name'] == self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval']:
+                    if self.settings.DEBUGGING:
+                        self._log("File already {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path), level='debug')
+                    return False
+        
+            
         # Convert file
         success     = False
         ffmpeg_args = self.generate_ffmpeg_args()
