@@ -150,15 +150,6 @@ class FFMPEGHandle(object):
             raise FFMPEGHandleFFProbeError(vid_file_path,str(e))
         if pipe.returncode == 1 or 'error' in info:
             raise FFMPEGHandleFFProbeError(vid_file_path, info)
-            
-        # check if already desired codec
-        for stream in info['streams']:
-            if stream['codec_type'] == 'video':
-                # Check if this file is already the right format
-                if stream['codec_name'] == self.settings.CODEC_CONFIG[self.settings.VIDEO_CODEC]['checkval']:
-                    if self.settings.DEBUGGING:
-                        self._log("File already {} - {}".format(self.settings.VIDEO_CODEC,vid_file_path), level='debug')
-                    raise ValueError('File already desired codec')
 
         # Get FPS
         try:

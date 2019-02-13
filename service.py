@@ -149,7 +149,8 @@ class LibraryScanner(threading.Thread):
         self.getConvertFiles(self.settings.LIBRARY_PATH)
 
     def addPathToQueue(self,pathname):
-        self.scheduledtasks.put(pathname)
+        if self.fileNotTargetFormat(pathname):
+            self.scheduledtasks.put(pathname)
 
     def fileNotTargetFormat(self,pathname):
         if not self.ffmpeg.check_file_to_be_processed(pathname):
