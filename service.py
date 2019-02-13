@@ -86,10 +86,13 @@ class TaskHandler(threading.Thread):
             while not self.abort_flag.is_set() and not self.inotifytasks.empty():
                 try:
                     pathname = self.inotifytasks.get_nowait()
-                    if self.job_queue.addItem(pathname):
-                        main_logger.info("Adding job to queue - {}".format(pathname))
+                    if self.fileNotTargetFormat(pathname):
+                        if self.job_queue.addItem(pathname):
+                            main_logger.info("Adding job to queue - {}".format(pathname))
+                        else:
+                            main_logger.info("Skipping job already in the queue - {}".format(pathname))
                     else:
-                        main_logger.info("Skipping job already in the queue - {}".format(pathname))
+                        main_logger.info("Skipping job already Target Format - {}".format(pathname))
                 except queue.Empty:
                     continue
                 except Exception as e:
