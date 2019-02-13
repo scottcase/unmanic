@@ -219,7 +219,6 @@ class FFMPEGHandle(object):
                 self._log("Bitrate Lower Than {}k ({}) on file: {}".format(self.settings.MIN_BITRATE,bitrate_final,vid_file_path), level='debug')
             return False
             
-        self._log("In ffmpeg.check_file_to_be_processed function for file - {}".format(vid_file_path))    
         for stream in file_properties['streams']:
             if stream['codec_type'] == 'video':
                 # Check if this file is already the right format

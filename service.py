@@ -92,7 +92,7 @@ class TaskHandler(threading.Thread):
                         else:
                             main_logger.info("Skipping job already in the queue - {}".format(pathname))
                     else:
-                        main_logger.info("Skipping job already Target Format - {}".format(pathname))
+                        self._log("Skipping job already Target Format - {}".format(pathname))
                 except queue.Empty:
                     continue
                 except Exception as e:
