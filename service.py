@@ -150,6 +150,8 @@ class LibraryScanner(threading.Thread):
 
     def addPathToQueue(self,pathname):
         if self.fileNotTargetFormat(pathname):
+            if self.settings.DEBUGGING:
+                self._log("In addPathToQueue function for file - {}".format(pathname))
             self.scheduledtasks.put(pathname)
 
     def fileNotTargetFormat(self,pathname):
