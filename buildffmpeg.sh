@@ -11,14 +11,13 @@ tar xjvf ffmpeg-snapshot.tar.bz2 &> /dev/null
 cd ffmpeg
 
 ./configure \
+--extra-cflags=-I/usr/local/cuda/targets/x86_64-linux/include \
+--extra-ldflags=-L/usr/local/cuda/targets/x86_64-linux/lib64 \
+--extra-cflags=-Ilocal/include \
 --enable-cuda \
 --enable-cuvid \
 --enable-nvenc \
 --enable-nonfree \
---enable-libnpp
---extra-cflags=-I/usr/local/cuda/include \
---extra-ldflags=-L/usr/local/cuda/lib64 \
---extra-cflags=-Ilocal/include \
 --disable-shared \
 --enable-gpl \
 --enable-libass \
@@ -30,9 +29,6 @@ cd ffmpeg
 --enable-libvorbis \
 --enable-libvpx \
 --enable-libxvid \
---enable-version3 \
-
-
-
+--enable-version3 
 make -j 10 &> /dev/null
 make install
