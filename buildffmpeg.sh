@@ -11,13 +11,15 @@ tar xjvf ffmpeg-snapshot.tar.bz2 &> /dev/null
 cd ffmpeg
 
 ./configure \
---enable-nonfree \
---disable-shared \
---enable-nvenc \
 --enable-cuda \
 --enable-cuvid \
---enable-libnpp \
+--enable-nvenc \
+--enable-nonfree \
+--enable-libnpp
+--extra-cflags=-I/usr/local/cuda/include \
+--extra-ldflags=-L/usr/local/cuda/lib64 \
 --extra-cflags=-Ilocal/include \
+--disable-shared \
 --enable-gpl \
 --enable-libass \
 --enable-libfdk-aac \
@@ -29,10 +31,8 @@ cd ffmpeg
 --enable-libvpx \
 --enable-libxvid \
 --enable-version3 \
---disable-debug \
---disable-ffplay \
---disable-indev=sndio \
---disable-outdev=sndio 
+
+
 
 make -j 10 &> /dev/null
 make install
