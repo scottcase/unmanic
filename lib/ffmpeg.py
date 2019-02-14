@@ -176,7 +176,7 @@ class FFMPEGHandle(object):
             raise ValueError('Unable to match against FPS or Duration.')
             
         if self.duration < 300:
-            raise ValueError('Warning, Duration Less Than 5 Minutes')
+            raise ValueError('Warning Duration Less Than 5 Minutes')
             
         # Get Bitrate
         try: 
