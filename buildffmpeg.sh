@@ -32,9 +32,7 @@ cd ffmpeg
 --disable-debug \
 --disable-ffplay \
 --disable-indev=sndio \
---disable-outdev=sndio \
---extra-cflags=-I/usr/local/cuda/include \
---extra-ldflags=-L/usr/local/cuda/lib64
+--disable-outdev=sndio 
 
 make -j 10 &> /dev/null
 make install
