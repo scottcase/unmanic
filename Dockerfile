@@ -1,5 +1,6 @@
 FROM nvidia/cuda
 LABEL maintainer="Scott <scott.case.1@gmail.com>"
+ENV DEBIAN_FRONTEND=noninteractive
 
 ADD buildffmpeg.sh buildffmpeg.sh
 ADD requirements.txt requirements.txt
