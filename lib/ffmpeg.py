@@ -304,8 +304,8 @@ class FFMPEGHandle(object):
                         os.remove(srcPath)
                         url = 'http://10.0.0.14:3467/d700e4b05d6d4989b49eac4207cf4b05'
                         payload = {'eventType': 'Manual', 'filepath': srcFolder}
-                        r = requests.post('http://10.0.0.14:3467/d700e4b05d6d4989b49eac4207cf4b05', data=payload)
-                        self._log("send request to plex_autoscan: URL:{} payload:{}".format(url,payload))
+                        r = requests.post(url, data=payload)
+                        self._log("send request to plex_autoscan: URL:{} payload:{} status_code:{}".format(url,payload,r.status_code))
                 else:
                     self._log("Copy / Replace failed during post processing '{}'".format(outPath), level='warning')
                     return False
