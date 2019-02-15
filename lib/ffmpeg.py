@@ -305,7 +305,7 @@ class FFMPEGHandle(object):
                         url = 'http://10.0.0.14:3467/d700e4b05d6d4989b49eac4207cf4b05'
                         payload = {'eventType': 'Manual', 'filepath': srcFolder}
                         r = requests.post(url, data=payload)
-                        if r == 200:
+                        if r == '200':
                             self._log("Successfully send request to plex_autoscan: URL:{} payload:{} status_code:{}".format(url,payload,r.status_code))
                         else:
                             self._log("Did not Successfully send request to plex_autoscan: URL:{} payload:{} status_code:{}".format(url,payload,r.status_code))
