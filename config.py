@@ -272,7 +272,7 @@ class CONFIG(object):
         return data
 
     def writeHistoryLog(self, data):
-        self._log("Writing to history file", message2=data)
+        ### self._log("Writing to history file", message2=data)
         if not os.path.exists(self.CONFIG_PATH):
             os.makedirs(self.CONFIG_PATH)
         history_file = os.path.join(self.CONFIG_PATH, 'history.json')
