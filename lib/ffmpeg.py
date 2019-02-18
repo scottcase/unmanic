@@ -297,17 +297,17 @@ class FFMPEGHandle(object):
                     success = False
                 if success:
                     # If successful move, remove source
+                    url = 'http://10.0.0.14:3467/d700e4b05d6d4989b49eac4207cf4b05'
+                    payload = {'eventType': 'Manual', 'filepath': destPath}
+                    r = requests.post(url, data=payload)
+                    if r.status_code == 200:
+                        self._log("Successfully send request to plex_autoscan")
+                    else:
+                        self._log("Did not Successfully send request to plex_autoscan: URL:{} payload:{} status_code:{}".format(url,payload,r.status_code))
                     #TODO: Add env variable option to keep src
                     if srcPath != destPath:
                         self._log("Removing source: {}".format(srcPath))
                         os.remove(srcPath)
-                        url = 'http://10.0.0.14:3467/d700e4b05d6d4989b49eac4207cf4b05'
-                        payload = {'eventType': 'Manual', 'filepath': destPath}
-                        r = requests.post(url, data=payload)
-                        if r.status_code == 200:
-                            self._log("Successfully send request to plex_autoscan")
-                        else:
-                            self._log("Did not Successfully send request to plex_autoscan: URL:{} payload:{} status_code:{}".format(url,payload,r.status_code))
                 else:
                     self._log("Copy / Replace failed during post processing '{}'".format(outPath), level='warning')
                     return False
