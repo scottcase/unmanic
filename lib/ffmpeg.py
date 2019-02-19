@@ -162,7 +162,7 @@ class FFMPEGHandle(object):
                         self.src_fps = eval(stream['avg_frame_rate'])
                 
         except ZeroDivisionError:
-            self._log('Warning, Cannot use input FPS', level='warning')
+            self._log('Warning, Cannot use input FPS on {}'.format(vid_file_path), level='warning')
         if self.src_fps == 0:
             raise ValueError('Unexpected zero FPS')
 
