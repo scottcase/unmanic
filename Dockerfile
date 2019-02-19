@@ -2,6 +2,8 @@ FROM nvidia/cuda
 LABEL maintainer="Scott <scott.case.1@gmail.com>"
 ENV DEBIAN_FRONTEND=noninteractive
 
+RUN --sysctl net.ipv6.conf.all.disable_ipv6=1
+
 ADD buildffmpeg.sh buildffmpeg.sh
 ADD requirements.txt requirements.txt
 
