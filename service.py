@@ -84,39 +84,34 @@ class TaskHandler(threading.Thread):
         return True
 
     def run(self):
-        main_logger.info("Starting TaskHandler Monitor loop...")
         self._log("Starting TaskHandler Monitor loop...")
-        self._log("Start while not self abort_flag is set function...")
         while not self.abort_flag.is_set():
-            self._log("IN while not self abort_flag is set function START...")
             while not self.abort_flag.is_set() and not self.scheduledtasks.empty():
                 try:
                     pathname = self.scheduledtasks.get_nowait()
                     if self.job_queue.addItem(pathname):
-                        main_logger.info("Adding job to queue - {}".format(pathname))
+                        self._log("Adding job to queue - {}".format(pathname))
                     else:
-                        main_logger.info("Skipping job already in the queue - {}".format(pathname))
+                        self._log("Skipping job already in the queue - {}".format(pathname))
                 except queue.Empty:
                     continue
                 except Exception as e:
-                    main_logger.error("Exception in processing scheduledtasks:", message2=str(e), level="exception")
+                    self._log("Exception in processing scheduledtasks:", message2=str(e), level="exception")
             while not self.abort_flag.is_set() and not self.inotifytasks.empty():
                 try:
                     pathname = self.inotifytasks.get_nowait()
-                    self._log("IN while not self abort_flag is set function AND inotifytasks not empty...")
                     if self.fileNotTargetFormat(pathname):
                         if self.job_queue.addItem(pathname):
-                            main_logger.info("Adding job to queue - {}".format(pathname))
+                            self._log("Adding job to queue - {}".format(pathname))
                         else:
-                            main_logger.info("Skipping job already in the queue - {}".format(pathname))
+                            self._log("Skipping job already in the queue - {}".format(pathname))
                     else:
-                        main_logger.info("Skipping job already Target Format - {}".format(pathname))
+                        self._log("Skipping job already Target Format - {}".format(pathname))
                 except queue.Empty:
                     continue
                 except Exception as e:
                     self._log("Exception in processing inotifytasks:", message2=str(e), level="exception")
             time.sleep(.2)
-        main_logger.info("Leaving TaskHandler Monitor loop...")
         self._log("Leaving TaskHandler Monitor loop...")
 
 
