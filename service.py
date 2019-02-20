@@ -72,7 +72,10 @@ class TaskHandler(threading.Thread):
 
     def run(self):
         main_logger.info("Starting TaskHandler Monitor loop...")
+        self._log("Starting TaskHandler Monitor loop...")
+        self._log("Start while not self abort_flag is set function...")
         while not self.abort_flag.is_set():
+            self._log("IN while not self abort_flag is set function START...")
             while not self.abort_flag.is_set() and not self.scheduledtasks.empty():
                 try:
                     pathname = self.scheduledtasks.get_nowait()
@@ -87,6 +90,7 @@ class TaskHandler(threading.Thread):
             while not self.abort_flag.is_set() and not self.inotifytasks.empty():
                 try:
                     pathname = self.inotifytasks.get_nowait()
+                    self._log("IN while not self abort_flag is set function AND inotifytasks not empty...")
                     if self.fileNotTargetFormat(pathname):
                         if self.job_queue.addItem(pathname):
                             main_logger.info("Adding job to queue - {}".format(pathname))
@@ -100,6 +104,7 @@ class TaskHandler(threading.Thread):
                     main_logger.error("Exception in processing inotifytasks:", message2=str(e), level="exception")
             time.sleep(.2)
         main_logger.info("Leaving TaskHandler Monitor loop...")
+        self._log("Leaving TaskHandler Monitor loop...")
 
 
 
