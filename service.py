@@ -208,24 +208,29 @@ class EventProcessor(pyinotify.ProcessEvent):
         getattr(self.logger, level)(message)
 
     def addPathToQueue(self,pathname):
-        self._log("AddPathToQueue Function:", pathname)
+        if self.settings.DEBUGGING:
+            self._log("AddPathToQueue Function:", pathname)
         self.inotifytasks.put(pathname)
 
     def process_IN_CLOSE_WRITE(self, event):
-        self._log("CLOSE_WRITE event detected:", event.pathname)
+        if self.settings.DEBUGGING:
+            self._log("CLOSE_WRITE event detected:", event.pathname)
         if event.pathname.lower().endswith(self.settings.SUPPORTED_CONTAINERS):
             # Add it to the queue
-            self._log("CLOSE_WRITE AddPathToQueue:", event.pathname)
+            if self.settings.DEBUGGING:
+                self._log("CLOSE_WRITE AddPathToQueue:", event.pathname)
             self.addPathToQueue(event.pathname)
         else:
             if self.settings.DEBUGGING:
                 self._log("Ignoring file due to incorrect suffix - '{}'".format(event.pathname))
 
     def process_IN_MOVED_TO(self, event):
-        self._log("MOVED_TO event detected:", event.pathname)
+        if self.settings.DEBUGGING:
+            self._log("MOVED_TO event detected:", event.pathname)
         if event.pathname.lower().endswith(self.settings.SUPPORTED_CONTAINERS):
             # Add it to the queue
-            self._log("MOVED_TO AddPathToQueue:", event.pathname)
+            if self.settings.DEBUGGING:
+                self._log("MOVED_TO AddPathToQueue:", event.pathname)
             self.addPathToQueue(event.pathname)
         else:
             if self.settings.DEBUGGING:
