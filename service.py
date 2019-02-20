@@ -70,10 +70,18 @@ class TaskHandler(threading.Thread):
         self.abort_flag     = threading.Event()
         self.abort_flag.clear()
         self.logger         = data_queues["logging"].get_logger(self.name)
+        self.ffmpeg         = ffmpeg.FFMPEGHandle(settings, data_queues['logging'])
         
     def _log(self, message, message2 = '', level = "info"):
         message = common.format_message(message, message2)
         getattr(self.logger, level)(message)
+        
+    def fileNotTargetFormat(self,pathname):
+        if not self.ffmpeg.check_file_to_be_processed(pathname):
+            if self.settings.DEBUGGING:
+                self._log("File does not need to be processed - {}".format(pathname))
+            return False
+        return True
 
     def run(self):
         main_logger.info("Starting TaskHandler Monitor loop...")
