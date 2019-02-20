@@ -55,6 +55,7 @@ unmanic_logging = unlogger.UnmanicLogger.__call__()
 main_logger = unmanic_logging.get_logger()
 
 
+
 threads   = []
 
 # The TaskHandler reads all items in the queues and passes them to the appropriate locations in the application.
@@ -194,12 +195,14 @@ class EventProcessor(pyinotify.ProcessEvent):
         getattr(self.logger, level)(message)
 
     def addPathToQueue(self,pathname):
+        self._log("AddPathToQueue Function:", pathname)
         self.inotifytasks.put(pathname)
 
     def process_IN_CLOSE_WRITE(self, event):
         self._log("CLOSE_WRITE event detected:", event.pathname)
         if event.pathname.lower().endswith(self.settings.SUPPORTED_CONTAINERS):
             # Add it to the queue
+            self._log("CLOSE_WRITE AddPathToQueue:", event.pathname)
             self.addPathToQueue(event.pathname)
         else:
             if self.settings.DEBUGGING:
@@ -209,6 +212,7 @@ class EventProcessor(pyinotify.ProcessEvent):
         self._log("MOVED_TO event detected:", event.pathname)
         if event.pathname.lower().endswith(self.settings.SUPPORTED_CONTAINERS):
             # Add it to the queue
+            self._log("MOVED_TO AddPathToQueue:", event.pathname)
             self.addPathToQueue(event.pathname)
         else:
             if self.settings.DEBUGGING:
