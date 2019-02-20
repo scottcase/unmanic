@@ -71,7 +71,7 @@ class TaskHandler(threading.Thread):
         self.abort_flag.clear()
         self.logger         = data_queues["logging"].get_logger(self.name)
         
-    def _log(self, message, message2 = '', level = "info"):
+    def _log(self, message, message2 = 'none', level = "info"):
         message = common.format_message(message, message2)
         getattr(self.logger, level)(message)
 
