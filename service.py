@@ -61,7 +61,7 @@ threads   = []
 # The TaskHandler reads all items in the queues and passes them to the appropriate locations in the application.
 # All messages are passed to the logger and all tasks are added to the job queue
 class TaskHandler(threading.Thread):
-    def __init__(self, data_queues, settings, job_queue, logging):
+    def __init__(self, data_queues, settings, job_queue):
         super(TaskHandler, self).__init__(name='TaskHandler')
         self.settings       = settings
         self.job_queue      = job_queue
@@ -69,7 +69,7 @@ class TaskHandler(threading.Thread):
         self.scheduledtasks = data_queues["scheduledtasks"]
         self.abort_flag     = threading.Event()
         self.abort_flag.clear()
-        self.logger         = logging.get_logger(self.name)
+        self.logger         = data_queues["logging"].get_logger(self.name)
 
     def run(self):
         main_logger.info("Starting TaskHandler Monitor loop...")
