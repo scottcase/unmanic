@@ -466,7 +466,7 @@ class FFMPEGHandle(object):
         else:
             command = ['ffmpeg', '-hwaccel', 'nvdec', '-y', '-i',infile] + args + ['-y',outfile]
         
-        
+        self._log("Executing: {}".format(' '.join(command)), level='debug')
         if self.settings.DEBUGGING:
            self._log("Executing: {}".format(' '.join(command)), level='debug')
            
