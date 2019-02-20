@@ -106,7 +106,7 @@ class TaskHandler(threading.Thread):
                 except queue.Empty:
                     continue
                 except Exception as e:
-                    main_logger.error("Exception in processing inotifytasks:", message2=str(e), level="exception")
+                    self._log("Exception in processing inotifytasks:", message2=str(e), level="exception")
             time.sleep(.2)
         main_logger.info("Leaving TaskHandler Monitor loop...")
         self._log("Leaving TaskHandler Monitor loop...")
