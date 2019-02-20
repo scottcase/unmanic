@@ -69,6 +69,7 @@ class TaskHandler(threading.Thread):
         self.scheduledtasks = data_queues["scheduledtasks"]
         self.abort_flag     = threading.Event()
         self.abort_flag.clear()
+        self.logger         = logging.get_logger(self.name)
 
     def run(self):
         main_logger.info("Starting TaskHandler Monitor loop...")
