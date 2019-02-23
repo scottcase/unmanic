@@ -201,7 +201,7 @@ class FFMPEGHandle(object):
                 file_properties = self.file_probe(vid_file_path)
         except Exception as e: 
             self._log("Exception - check_file_to_be_processed: {}".format(e), level='exception')
-            
+            self._log("Failed to fetch properties of file {}".format(vid_file_path), level='debug')
             # Failed to fetch properties
             if self.settings.DEBUGGING:
                 self._log("Failed to fetch properties of file {}".format(vid_file_path), level='debug')
