@@ -147,6 +147,7 @@ class FFMPEGHandle(object):
             info = json.loads(out.decode("utf-8"))
         except Exception as e: 
             self._log("Exception - file_probe: {}".format(e), level='exception')
+            self._log('Warning, file_probe FilePath: {}'.format(vid_file_path), level='warning')
             raise FFMPEGHandleFFProbeError(vid_file_path,str(e))
         if pipe.returncode == 1 or 'error' in info:
             raise FFMPEGHandleFFProbeError(vid_file_path, info)
