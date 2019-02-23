@@ -216,6 +216,7 @@ class EventProcessor(pyinotify.ProcessEvent):
         getattr(self.logger, level)(message)
 
     def addPathToQueue(self,pathname):
+        self._log("AddPathToQueue Function:", pathname)
         if self.settings.DEBUGGING:
             self._log("AddPathToQueue Function:", pathname)
         self.inotifytasks.put(pathname)
