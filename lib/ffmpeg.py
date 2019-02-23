@@ -129,7 +129,7 @@ class FFMPEGHandle(object):
         if type(vid_file_path) != str:
             raise Exception('Give ffprobe a full file path of the video')
 
-        command = ["ffprobe",
+        command = ["/home/scott/bin/ffprobe",
                 "-loglevel",  "quiet",
                 "-print_format", "json",
                 "-show_format",
