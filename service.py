@@ -107,13 +107,6 @@ class TaskHandler(threading.Thread):
                         else:
                             self._log("Skipping job already in the queue - {}".format(pathname))
                     else:
-                        url = 'http://10.0.0.14:3467/d700e4b05d6d4989b49eac4207cf4b05'
-                        payload = {'eventType': 'Manual', 'filepath': pathname}
-                        r = requests.post(url, data=payload)
-                        if r.status_code == 200:
-                            self._log("Successfully send request to plex_autoscan")
-                        else:
-                            self._log("Did not Successfully send request to plex_autoscan: URL:{} payload:{} status_code:{}".format(url,payload,r.status_code))
                         self._log("Skipping job already Target Format - {}".format(pathname))
                 except queue.Empty:
                     continue
