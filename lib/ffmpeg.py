@@ -463,7 +463,7 @@ class FFMPEGHandle(object):
 
         # Create command with infile, outfile and the arguments
         if format(self.src_codec_name) == 'mpeg4':
-            command = ['/home/scott/bin/ffmpeg', '-hwaccel', 'cuvid', '-c:v', 'mpeg4_cuvid', '-y', '-i',infile] + args + ['-y',outfile]
+            command = ['ffmpeg', '-hwaccel', 'cuvid', '-c:v', 'mpeg4_cuvid', '-y', '-i',infile] + args + ['-y',outfile]
         else:
             command = ['ffmpeg', '-hwaccel', 'nvdec', '-y', '-i',infile] + args + ['-y',outfile]
         
