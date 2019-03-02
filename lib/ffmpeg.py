@@ -129,7 +129,7 @@ class FFMPEGHandle(object):
         if type(vid_file_path) != str:
             raise Exception('Give ffprobe a full file path of the video')
 
-        command = ["/home/scott/bin/ffprobe",
+        command = ["ffprobe",
                 "-loglevel",  "quiet",
                 "-print_format", "json",
                 "-show_format",
@@ -465,7 +465,7 @@ class FFMPEGHandle(object):
         if format(self.src_codec_name) == 'mpeg4':
             command = ['/home/scott/bin/ffmpeg', '-hwaccel', 'cuvid', '-c:v', 'mpeg4_cuvid', '-y', '-i',infile] + args + ['-y',outfile]
         else:
-            command = ['/home/scott/bin/ffmpeg', '-hwaccel', 'nvdec', '-y', '-i',infile] + args + ['-y',outfile]
+            command = ['ffmpeg', '-hwaccel', 'nvdec', '-y', '-i',infile] + args + ['-y',outfile]
         
         self._log("Executing: {}".format(' '.join(command)), level='debug')
         if self.settings.DEBUGGING:
