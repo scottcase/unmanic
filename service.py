@@ -182,7 +182,8 @@ class LibraryScanner(threading.Thread):
             if self.settings.DEBUGGING:
                 self._log(json.dumps(files,indent=2))
             # Add all files in this path that match our container filter
-            self._log("Scanning Directory - '{}'".format(root))
+            if self.settings.DEBUGGING:
+                self._log("Scanning Directory - '{}'".format(root))
             for file_path in files:
                 if file_path.lower().endswith(self.settings.SUPPORTED_CONTAINERS):
                     pathname = os.path.join(root,file_path)
