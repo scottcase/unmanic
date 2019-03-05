@@ -70,6 +70,7 @@ class CONFIG(object):
         self.KEEP_ORIGINAL_FILE=False
         self.KEEP_ORIGINAL_PATH='/MoviesUnsorted'
         self.PLEX_TOKEN=''
+        self.PLEX_URL=''
 
         ### Set the supported codecs (for destination)
         # TODO: Read this from ffmpeg
@@ -144,7 +145,8 @@ class CONFIG(object):
             , 'SCHEDULE_FULL_SCAN_MINS'
             , 'SUPPORTED_CONTAINERS'
             , 'VIDEO_CODEC'
-            , 'PLEX_TOKEN'
+            , 'PLEX_TOKEN',
+            , 'PLEX_URL'
 
         ]
         for setting in ENV_SETTINGS:
@@ -241,6 +243,8 @@ class CONFIG(object):
             self.MAX_BITRATE = value
         if "PLEX_TOKEN" in key:
             self.PLEX_TOKEN = value
+        if "PLEX_URL" in key:
+            self.PLEX_URL = value
         ### Save to file
         if save_to_file:
             self.writeSettingsToFile()
