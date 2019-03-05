@@ -1,5 +1,9 @@
-FROM nvidia/cuda
+FROM lsiobase/ubuntu:bionic
 LABEL maintainer="Scott <scott.case.1@gmail.com>"
+
+#Add needed nvidia environment variables for https://github.com/NVIDIA/nvidia-docker
+ENV NVIDIA_DRIVER_CAPABILITIES="compute,video,utility"
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 ADD buildffmpeg.sh buildffmpeg.sh
