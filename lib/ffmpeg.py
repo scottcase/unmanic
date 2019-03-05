@@ -321,7 +321,7 @@ class FFMPEGHandle(object):
         if r.status_code == 200:
             self._log("Successfully send request to plex_autoscan")
         else:
-            self._log("Did not Successfully send request to plex_autoscan: URL:{} payload:{} status_code:{}".format(url,payload,r.status_code))
+            self._log("Did not Successfully send request to plex_autoscan: URL:{} payload:{} status_code:{} full_url: {}".format(url,payload,r.status_code,r.url))
         self._log("Successfully processed file '{}'".format(srcPath))
         return True
 
