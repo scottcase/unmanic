@@ -69,6 +69,7 @@ class CONFIG(object):
         self.AUDIO_LANGUAGE='eng'
         self.KEEP_ORIGINAL_FILE=False
         self.KEEP_ORIGINAL_PATH='/MoviesUnsorted'
+        self.PLEX_TOKEN=''
 
         ### Set the supported codecs (for destination)
         # TODO: Read this from ffmpeg
@@ -143,6 +144,7 @@ class CONFIG(object):
             , 'SCHEDULE_FULL_SCAN_MINS'
             , 'SUPPORTED_CONTAINERS'
             , 'VIDEO_CODEC'
+            , 'PLEX_TOKEN'
 
         ]
         for setting in ENV_SETTINGS:
@@ -237,6 +239,8 @@ class CONFIG(object):
             self.MIN_BITRATE = value
         if "MAX_BITRATE" in key:
             self.MAX_BITRATE = value
+        if "PLEX_TOKEN" in key:
+            self.PLEX_TOKEN = value
         ### Save to file
         if save_to_file:
             self.writeSettingsToFile()
