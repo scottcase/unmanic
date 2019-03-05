@@ -312,11 +312,11 @@ class FFMPEGHandle(object):
             self._log("Failed processing file '{}'".format(srcPath), level='warning')
             return False
         # If file conversion was successful, we will get here
-        #url = 'http://10.0.0.14:3467/d700e4b05d6d4989b49eac4207cf4b05'
-        #payload = {'eventType': 'Manual', 'filepath': destPath}
+        # url = 'http://10.0.0.14:3467/d700e4b05d6d4989b49eac4207cf4b05'
+        # payload = {'eventType': 'Manual', 'filepath': destPath}
+        # r = requests.post(url, data=payload)
         url = ' http://10.0.0.25:32400/library/sections/44/refresh'
         payload = {'X-Plex-Token': self.settings.PLEX_TOKEN}
-        #r = requests.post(url, data=payload)
         r = requests.get(url, params=payload)
         if r.status_code == 200:
             self._log("Successfully send request to plex_autoscan")
