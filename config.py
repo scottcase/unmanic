@@ -145,7 +145,7 @@ class CONFIG(object):
             , 'SCHEDULE_FULL_SCAN_MINS'
             , 'SUPPORTED_CONTAINERS'
             , 'VIDEO_CODEC'
-            , 'PLEX_TOKEN',
+            , 'PLEX_TOKEN'
             , 'PLEX_URL'
 
         ]
