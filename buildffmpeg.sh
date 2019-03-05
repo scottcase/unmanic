@@ -1,6 +1,7 @@
 #!/bin/bash
 
-git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
+#git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
+git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git#tag=n8.2.15.8
 cd nv-codec-headers
 make
 make install
