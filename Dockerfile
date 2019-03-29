@@ -30,20 +30,16 @@ COPY /requirements.txt /tmp/requirements.txt
 ## RUN echo "**** Install ffmpeg ****" && /tmp/buildffmpeg.sh
 
 ### Install pyinotify service.
-##RUN \
-##    echo "**** Install pip packages ****" \
-##        && python3 -m pip install --no-cache-dir -r /tmp/requirements.txt  \
-##    && \
-##    echo "**** Cleanup ****" \
-##        && rm -rf \
-##            /tmp/* \
-##            /var/tmp/*
-
 RUN \
+    echo "**** Install pip packages ****" \
+        && python3 -m pip install --no-cache-dir -r /tmp/requirements.txt  \
+    && \
     echo "**** Cleanup ****" \
-    && rm -rf \
+        && rm -rf \
             /tmp/* \
             /var/tmp/*
+
+
 
 ### Add local files
 COPY /docker/root   /
