@@ -4,4 +4,4 @@ echo "Starting UnManic."
 cd /app
 echo $PWD
 exec \
-s6-setuidgid abc python3 /app/service.py
+s6-setuidgid abc python3 ./service.py
