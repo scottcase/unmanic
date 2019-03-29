@@ -2,5 +2,7 @@
 
 echo "Starting UnManic."
 
+cd /app
+
 exec \
 s6-setuidgid abc python3 /app/service.py
