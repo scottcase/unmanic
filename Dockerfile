@@ -49,4 +49,4 @@ EXPOSE 8888
 VOLUME /config
 VOLUME /logs
 WORKDIR /app
-CMD [ "python3", "/app/service.py" ]
+### CMD [ "python3", "/app/service.py" ]

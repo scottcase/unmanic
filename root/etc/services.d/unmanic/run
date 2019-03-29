@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bash
+
+echo "Starting UnManic."
+
+exec \
+s6-setuidgid abc python3 /app/service.py
