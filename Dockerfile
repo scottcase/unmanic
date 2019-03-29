@@ -42,6 +42,7 @@ RUN \
 
 ### Add local files
 COPY /docker/root   /
+COPY /root/         /
 COPY /              /app/
 RUN chmod +x /app/service.py
 
