@@ -1,10 +1,5 @@
 #!/usr/bin/with-contenv bash
 
-echo "copy ffmpeg binaries"
-cp /ffmpeg_binary/* /usr/local/bin/
-chmod +x /usr/local/bin/ffmpeg
-chmod +x /usr/local/bin/ffprobe
-
 echo "Starting UnManic."
 cd /app
 
