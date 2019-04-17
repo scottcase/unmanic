@@ -23,11 +23,11 @@ RUN apt-get update && \
 
 # Add pip requirements
 COPY /requirements.txt /tmp/requirements.txt
-##COPY /buildffmpeg.sh /tmp/buildffmpeg.sh
-##RUN chmod +x /tmp/buildffmpeg.sh
+COPY /buildffmpeg.sh /tmp/buildffmpeg.sh
+RUN chmod +x /tmp/buildffmpeg.sh
 
 ### Install ffmpeg
-## RUN echo "**** Install ffmpeg ****" && /tmp/buildffmpeg.sh
+RUN echo "**** Install ffmpeg ****" && /tmp/buildffmpeg.sh
 
 ### Install pyinotify service.
 RUN \
