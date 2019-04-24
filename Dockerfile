@@ -51,4 +51,12 @@ EXPOSE 8888
 VOLUME /config
 VOLUME /logs
 WORKDIR /app
+
+### Environment variables
+ENV \
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US.UTF-8 \
+    LC_CTYPE=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8
+    
 ### CMD [ "python3", "/app/service.py" ]
