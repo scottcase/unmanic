@@ -210,14 +210,14 @@ RUN \
 
 # Install pre-built Unmanic wheel
 # Must first run `python3 ./setup.py bdist_wheel` on host to build package
-COPY /dist/ /src/
+# COPY /dist/ /src/
 RUN \
     echo "**** Install Unmanic ****" \
         && sleep 2 \
         && \
         echo "**** Install unmanic from pre-built wheel ****" \
-            && ls -l /src/ \
-            && python3 -m pip install --no-cache-dir /src/*.whl \
+            # && ls -l /src/ \
+            # && python3 -m pip install --no-cache-dir /src/*.whl \
         && \
         echo "**** Move unmanic executable so we can wrap a bash script around it for developers ****" \
             && mv -f /usr/local/bin/unmanic /usr/local/bin/unmanic-service \
