@@ -86,7 +86,7 @@ class EventHandler(FileSystemEventHandler):
         self.abort_flag.clear()
 
     def on_any_event(self, event):
-        if event.event_type in ["created", "closed"]:
+        if event.event_type in ["closed"]:
             # Ensure event was not for a directory
             if event.is_directory:
                 self.logger.debug("Detected event is for a directory. Ignoring...")
