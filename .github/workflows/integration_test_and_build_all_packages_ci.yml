@@ -221,7 +221,7 @@ jobs:
           ORG=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
-          SERVICE_NAME=unmanic
+          SERVICE_NAME=unmanicsc
           DOCKER_HUB_IMAGE=docker.io/scottcase/${SERVICE_NAME:?}
           GHCR_IMAGE=ghcr.io/${ORG:?}/${SERVICE_NAME:?}
 
@@ -245,7 +245,7 @@ jobs:
           fi
 
           DOCKER_PUSH="true"
-          if [[ ${DOCKER_HUB_IMAGE} != 'docker.io/scottcase/unmanic' ]]; then
+          if [[ ${DOCKER_HUB_IMAGE} != 'docker.io/scottcase/unmanicsc' ]]; then
             DOCKER_PUSH="false"
           fi
 
