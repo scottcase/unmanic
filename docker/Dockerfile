@@ -210,11 +210,6 @@ RUN \
 
 # Install pre-built Unmanic wheel
 # Must first run `python3 ./setup.py bdist_wheel` on host to build package
-RUN \
-    echo "**** Install Unmanic ****" \
-        && sleep 2 \
-        && \
-        && python3 ./setup.py bdist_wheel
 # COPY /dist/ /src/
 RUN \
     echo "**** Install Unmanic ****" \
