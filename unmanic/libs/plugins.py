@@ -649,7 +649,7 @@ class PluginsHandler(object, metaclass=SingletonType):
                         'uuid':       'newPluginUpdate',
                         'type':       'info',
                         'icon':       'report',
-                        'label':      'pluginupdateAvailableLabel',
+                        'label':      'failedTaskLabel',
                         'message':    'You have a new Plugin Update Available',
                         'navigation': {
                         'push':   '/ui/settings-plugins',
