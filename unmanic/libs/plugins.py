@@ -43,6 +43,7 @@ from unmanic import config
 from unmanic.libs import common
 from unmanic.libs.library import Library
 from unmanic.libs.logs import UnmanicLogging
+from unmanic.libs.notifications import Notifications
 from unmanic.libs.session import Session
 from unmanic.libs.singleton import SingletonType
 from unmanic.libs.unmodels import EnabledPlugins, LibraryPluginFlow, Plugins, PluginRepos
@@ -642,6 +643,21 @@ class PluginsHandler(object, metaclass=SingletonType):
         # Update each plugin in turn
         for record in records_by_id:
             if self.install_plugin_by_id(record.get('plugin_id')):
+                notifications = Notifications()
+                notifications.add(
+                    {
+                        'uuid':       'newPluginUpdate',
+                        'type':       'info',
+                        'icon':       'report',
+                        'label':      'failedTaskLabel',
+                        'message':    'You have a new Plugin Update Available',
+                        'navigation': {
+                        'push':   '/ui/settings-plugins',
+                            'events': [
+                            'completedTasksShowFailed',
+                             ],
+                        },
+                    })
                 continue
             self.logger.debug("Failed to update plugin '%s'", record.get('plugin_id'))
             return False
