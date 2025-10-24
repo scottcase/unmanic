@@ -3,6 +3,7 @@
 #   https://github.com/keylase/nvidia-patch/blob/master/docker-entrypoint.sh
 #
 
+# ORIG patch url https://raw.githubusercontent.com/keylase/nvidia-patch/${NVIDIA_PATCH_VERSION}/patch.sh
 
 # Install NVIDIA Patch
 # REF: https://github.com/keylase/nvidia-patch#docker-support
@@ -11,7 +12,7 @@ if [[ ! -z ${NVIDIA_PATCH_VERSION} ]]; then
     echo "**** (patch-nvidia) Fetch NVIDIA Patch ****";
     curl -sSLf \
         -o /usr/local/bin/patch.sh \
-        "https://raw.githubusercontent.com/keylase/nvidia-patch/${NVIDIA_PATCH_VERSION}/patch.sh"
+        "https://raw.githubusercontent.com/keylase/nvidia-patch/refs/heads/master/patch.sh"
     chmod +x /usr/local/bin/patch.sh
 
     echo "**** (patch-nvidia) Exec NVIDIA Patch ****";
